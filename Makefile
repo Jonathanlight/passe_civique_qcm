@@ -128,6 +128,22 @@ quota-cron: ## display cron command for monthly quota reset
 format-twig: ## Format Twig templates with Prettier
 	-$(DOCKER_DEV) exec node npx prettier --write "templates/**/*.twig" --loglevel=silent || true
 
+## ----- Quiz Generation -----
+setup-exam: ## Setup exam database with themes, configs and questions
+	$(DOCKER_DEV) exec apache php bin/console app:setup-exam
+
+generate-questions: ## Generate questions for all themes (use COUNT=N for questions per theme)
+	$(DOCKER_DEV) exec apache php bin/console app:generate-questions --count=$(or $(COUNT),10)
+
+generate-questions-theme: ## Generate questions for a specific theme (use THEME=id and COUNT=N)
+	$(DOCKER_DEV) exec apache php bin/console app:generate-questions $(THEME) --count=$(or $(COUNT),10)
+
+create-exam: ## Create exam configuration (use PRESET=officiel|entrainement|rapide|marathon|difficile)
+	$(DOCKER_DEV) exec apache php bin/console app:create-exam-config $(or $(PRESET),officiel)
+
+list-exam-presets: ## List available exam configuration presets
+	$(DOCKER_DEV) exec apache php bin/console app:create-exam-config --list
+
 ## ----- Help -----
 help: ## Display this help
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'

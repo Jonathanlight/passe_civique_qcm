@@ -1,0 +1,18 @@
+{
+  "name": "passe-civique-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for generating French citizenship quiz questions",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

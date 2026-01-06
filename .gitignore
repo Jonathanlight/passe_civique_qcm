@@ -1,0 +1,98 @@
+# Cache and logs (Symfony2)
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+todo.md
+SEO.md
+public/uploads/
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+.php-cs-fixer.cache
+CLAUDE.md
+public/var/
+
+docker-compose.override.yml
+docker-compose.yml
+
+###> friendsofphp/php-cs-fixer ###
+/app/symfony/.php-cs-fixer.php
+/app/symfony/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+# Email spool folder
+/app/spool/*
+
+# Cache, session files and logs (Symfony3)
+/var/*
+/app/symfony/var/*
+/var/cache/*
+/var/logs/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+!var/sessions/.gitkeep
+
+docker-compose.override.yml
+
+# Logs (Symfony4)
+/app/symfony/var/log/*
+/app/symfony/var/cache/*
+!var/log/.gitkeep
+
+/app/symfony/assets/vendor/
+/app/symfony/node_modules/
+
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.ini
+
+# Managed by Composer
+/app/bootstrap.php.cache
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/app/symfony/vendor/
+
+# Assets and user uploads
+/web/bundles/
+/web/uploads/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
+
+/composer.phar
+
+# Backup entities generated with doctrine:generate:entities command
+**/Entity/*~
+
+# Embedded web-server pid file
+/.web-server-pid
+app/symfony/.php-cs-fixer.cache
+
+# Ignorer le dossier de composants de test
+app/symfony/templates/test_component/
+
+# Ignorer le dossier test_component dans les templates
+app/symfony/templates/test_component/
+
+# Ignorer le contrôleur spécifique
+app/symfony/src/Controller/TestComponentController.php
+
+# Ignorer le fichier JavaScript de la documentation
+app/symfony/assets/js/documentation.js
+
+# Ignorer le fichier CSS de la documentation
+app/symfony/assets/styles/documentation.css
+
+# Ignorer le contrôleur de test
+app/symfony/src/Controller/TestComponentController.php
+/app/symfony/public/var/
+/app/symfony/public/var/

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des quiz{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1 class="mb-0">Historique des quiz</h1>
+            <a href="{{ path('app_profile') }}" class="btn btn-secondary">
+                Retour au profil
+            </a>
+        </div>
+
+        {% if quizzes|length > 0 %}
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Configuration</th>
+                        <th>Score</th>
+                        <th>Duree</th>
+                        <th>Statut</th>
+                        <th>Resultat</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for quiz in quizzes %}
+                        <tr>
+                            <td>{{ quiz.startedAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ quiz.configuration.name }}</td>
+                            <td>
+                                {% if quiz.isCompleted %}
+                                    {{ quiz.correctAnswers }}/{{ quiz.totalQuestions }} ({{ quiz.scorePercent|number_format(0) }}%)
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if quiz.durationInMinutes %}
+                                    {{ quiz.durationInMinutes }} min
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if quiz.status == 'completed' %}
+                                    <span class="status-badge success">Termine</span>
+                                {% elseif quiz.status == 'in_progress' %}
+                                    <span class="status-badge warning">En cours</span>
+                                {% else %}
+                                    <span class="status-badge danger">Abandonne</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if quiz.isCompleted %}
+                                    {% if quiz.isPassed %}
+                                        <span class="status-badge success">Reussi</span>
+                                    {% else %}
+                                        <span class="status-badge danger">Echec</span>
+                                    {% endif %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if quiz.isCompleted %}
+                                    <a href="{{ path('app_quiz_results', {id: quiz.id}) }}" class="btn btn-sm btn-outline">
+                                        Voir details
+                                    </a>
+                                {% elseif quiz.status == 'in_progress' %}
+                                    <a href="{{ path('app_quiz_question', {id: quiz.id}) }}" class="btn btn-sm btn-primary">
+                                        Continuer
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="card text-center card-no-hover">
+                <p class="text-muted mb-4">Vous n'avez pas encore passe de quiz.</p>
+                <a href="{{ path('app_quiz_start') }}" class="btn btn-primary">
+                    Commencer mon premier quiz
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

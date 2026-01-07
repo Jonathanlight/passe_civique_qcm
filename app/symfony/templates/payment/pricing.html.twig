@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tarifs - Passe Civique{% endblock %}
+
+{% block body %}
+<section class="pricing-hero">
+    <div class="container">
+        <h1 class="pricing-title">Preparez votre citoyennete francaise</h1>
+        <p class="pricing-subtitle">Choisissez le plan qui vous convient pour acceder a tous nos quiz</p>
+
+        {% if app.user %}
+            {% if app.user.hasActiveSubscription %}
+                <div class="subscription-active-badge">
+                    <span class="badge-icon">&#10003;</span>
+                    Vous avez un abonnement actif jusqu'au {{ app.user.activeSubscription.endDate|date('d/m/Y') }}
+                </div>
+            {% else %}
+                <div class="free-trial-info">
+                    {% set remaining = app.user.remainingFreeQuizzes %}
+                    {% if remaining > 0 %}
+                        <span class="trial-icon">&#127873;</span>
+                        {{ remaining }} quiz gratuit{{ remaining > 1 ? 's' : '' }} restant{{ remaining > 1 ? 's' : '' }}
+                    {% else %}
+                        <span class="trial-icon">&#128274;</span>
+                        Vous avez utilise vos quiz gratuits. Abonnez-vous pour continuer.
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="free-trial-info">
+                <span class="trial-icon">&#127873;</span>
+                2 quiz gratuits pour commencer, sans engagement
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="page-content pricing-section">
+    <div class="container">
+        <div class="pricing-grid">
+            {# Free Plan #}
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <h3 class="pricing-plan-name">Gratuit</h3>
+                    <div class="pricing-price">
+                        <span class="price-amount">0</span>
+                        <span class="price-currency">EUR</span>
+                    </div>
+                    <p class="pricing-duration">Pour decouvrir</p>
+                </div>
+                <div class="pricing-card-body">
+                    <ul class="pricing-features">
+                        <li><span class="feature-check">&#10003;</span> 2 quiz complets</li>
+                        <li><span class="feature-check">&#10003;</span> Acces aux resultats detailles</li>
+                        <li><span class="feature-check">&#10003;</span> Tous les themes disponibles</li>
+                        <li class="feature-disabled"><span class="feature-x">&#10007;</span> Quiz illimites</li>
+                        <li class="feature-disabled"><span class="feature-x">&#10007;</span> Mode examen</li>
+                        <li class="feature-disabled"><span class="feature-x">&#10007;</span> Suivi de progression</li>
+                    </ul>
+                </div>
+                <div class="pricing-card-footer">
+                    {% if not app.user %}
+                        <a href="{{ path('app_register') }}" class="btn btn-secondary btn-lg btn-block">
+                            Creer un compte
+                        </a>
+                    {% else %}
+                        <span class="btn btn-secondary btn-lg btn-block disabled">
+                            Plan actuel
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Paid Plans #}
+            {% for package in packages %}
+                <div class="pricing-card {{ package.popular ? 'pricing-card-popular' : '' }}">
+                    {% if package.popular %}
+                        <div class="popular-badge">Le plus populaire</div>
+                    {% endif %}
+                    <div class="pricing-card-header">
+                        <h3 class="pricing-plan-name">{{ package.name }}</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">{{ package.price|number_format(0, ',', ' ') }}</span>
+                            <span class="price-currency">EUR</span>
+                        </div>
+                        <p class="pricing-duration">pour {{ package.durationInMonths }} mois</p>
+                        <p class="pricing-monthly">soit {{ package.monthlyPrice|number_format(2, ',', ' ') }} EUR/mois</p>
+                    </div>
+                    <div class="pricing-card-body">
+                        <ul class="pricing-features">
+                            <li><span class="feature-check">&#10003;</span> Quiz illimites</li>
+                            <li><span class="feature-check">&#10003;</span> Tous les themes</li>
+                            <li><span class="feature-check">&#10003;</span> Mode examen officiel</li>
+                            <li><span class="feature-check">&#10003;</span> Suivi de progression</li>
+                            <li><span class="feature-check">&#10003;</span> Resultats detailles</li>
+                            <li><span class="feature-check">&#10003;</span> Historique complet</li>
+                            {% if package.features %}
+                                {% for feature in package.features %}
+                                    <li><span class="feature-check">&#10003;</span> {{ feature }}</li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="pricing-card-footer">
+                        {% if app.user %}
+                            {% if app.user.hasActiveSubscription %}
+                                <span class="btn btn-secondary btn-lg btn-block disabled">
+                                    Deja abonne
+                                </span>
+                            {% else %}
+                                <a href="{{ path('app_checkout', {id: package.id}) }}" class="btn btn-primary btn-lg btn-block">
+                                    S'abonner
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('app_register') }}" class="btn btn-primary btn-lg btn-block">
+                                Creer un compte
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pricing-guarantee">
+            <div class="guarantee-icon">&#128274;</div>
+            <h4>Paiement 100% securise</h4>
+            <p>Vos paiements sont traites par Stripe, leader mondial du paiement en ligne.</p>
+            <div class="payment-methods">
+                <span class="payment-method">Visa</span>
+                <span class="payment-method">Mastercard</span>
+                <span class="payment-method">CB</span>
+            </div>
+        </div>
+
+        <div class="pricing-faq">
+            <h3>Questions frequentes</h3>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Puis-je annuler a tout moment ?</h4>
+                    <p>Oui, votre abonnement reste actif jusqu'a sa date d'expiration, sans renouvellement automatique.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Les quiz sont-ils bases sur le vrai test ?</h4>
+                    <p>Oui, nos questions couvrent tous les themes officiels du parcours d'integration republicaine.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Combien de quiz puis-je faire ?</h4>
+                    <p>Avec un abonnement, vous avez acces a un nombre illimite de quiz pendant toute la duree de votre abonnement.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Comment fonctionne la facture ?</h4>
+                    <p>Vous recevez une facture par email apres chaque paiement, telechargeable depuis votre profil.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

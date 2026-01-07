@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devenez citoyen francais{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-logo">
+            <img src="{{ asset('images/logo-hero.svg') }}" alt="Bienvenue en France" class="hero-logo-img">
+        </div>
+        <h1 class="hero-title">Bienvenue en France</h1>
+        <p class="hero-subtitle">Preparez votre parcours d'integration republicaine et devenez citoyen francais</p>
+        <div class="hero-cta">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_quiz_start') }}" class="hero-btn">
+                    Commencer le quiz
+                </a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="hero-btn">
+                    Commencer maintenant
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="page-content" data-controller="animation">
+    <div class="container">
+        <div class="stats-grid mb-8">
+            <div class="stat-card" data-animation-target="animate">
+                <div class="stat-icon">📚</div>
+                <div class="stat-value">{{ questionCount }}</div>
+                <div class="stat-label">Questions</div>
+            </div>
+            <div class="stat-card" data-animation-target="animate">
+                <div class="stat-icon">📂</div>
+                <div class="stat-value">{{ themes|length }}</div>
+                <div class="stat-label">Themes</div>
+            </div>
+            <div class="stat-card" data-animation-target="animate">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">{{ stats.successRate|default(0) }}%</div>
+                <div class="stat-label">Taux de reussite</div>
+            </div>
+            <div class="stat-card" data-animation-target="animate">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value">{{ stats.totalQuizzes|default(0) }}</div>
+                <div class="stat-label">Quiz completes</div>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-6">Les themes abordes</h2>
+        <div class="themes-grid">
+            {% for theme in themes %}
+                <div class="theme-card" data-animation-target="animate">
+                    <div class="theme-icon">
+                        {% if theme.icon == 'balance-scale' %}⚖️
+                        {% elseif theme.icon == 'landmark' %}🏛️
+                        {% elseif theme.icon == 'building-columns' %}🏛️
+                        {% elseif theme.icon == 'map' %}🗺️
+                        {% elseif theme.icon == 'flag' %}🇫🇷
+                        {% elseif theme.icon == 'gavel' %}⚖️
+                        {% elseif theme.icon == 'home' %}🏠
+                        {% else %}📖
+                        {% endif %}
+                    </div>
+                    <div class="theme-name">{{ theme.name }}</div>
+                    <p class="theme-description">{{ theme.description }}</p>
+                    <span class="theme-count">{{ theme.activeQuestionsCount }} questions</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-8">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_quiz_start') }}" class="btn btn-primary btn-lg">
+                    Commencer un quiz
+                </a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="btn btn-primary btn-lg">
+                    Creer un compte gratuit
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

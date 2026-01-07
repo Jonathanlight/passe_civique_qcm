@@ -1,0 +1,129 @@
+# Navigation
+nav:
+    home: "Accueil"
+    quiz: "Quiz"
+    profile: "Mon Profil"
+    login: "Connexion"
+    register: "Inscription"
+    logout: "Deconnexion"
+    admin: "Administration"
+
+# Home Page
+home:
+    hero:
+        title: "Devenez citoyen francais"
+        subtitle: "Testez vos connaissances et preparez-vous a l'examen de citoyennete"
+        cta: "Commencer le quiz"
+    features:
+        questions: "Questions"
+        themes: "Themes"
+        success_rate: "Taux de reussite"
+    themes_title: "Les themes abordes"
+
+# Quiz
+quiz:
+    start: "Demarrer un quiz"
+    choose_mode: "Choisissez votre mode de quiz"
+    question: "Question"
+    of: "sur"
+    next: "Question suivante"
+    submit: "Valider"
+    finish: "Terminer le quiz"
+    abandon: "Abandonner"
+    time_remaining: "Temps restant"
+    multiple_answers: "Plusieurs reponses possibles"
+    confirm_abandon: "Etes-vous sur de vouloir abandonner ce quiz ?"
+
+# Results
+results:
+    title: "Resultats"
+    score: "Votre score"
+    passed: "Felicitations, vous avez reussi !"
+    failed: "Dommage, vous pouvez reessayer."
+    correct_answers: "Bonnes reponses"
+    duration: "Duree"
+    retry: "Refaire un quiz"
+    view_details: "Detail des reponses"
+    back_profile: "Mon profil"
+
+# Profile
+profile:
+    dashboard: "Tableau de bord"
+    stats: "Statistiques"
+    history: "Historique"
+    edit: "Modifier mon profil"
+    level: "Niveau"
+    quizzes_passed: "Quiz reussis"
+    quizzes_completed: "Quiz completes"
+    average_score: "Score moyen"
+    best_score: "Meilleur score"
+    progress_next_level: "Progression vers le niveau suivant"
+    no_quiz_yet: "Vous n'avez pas encore complete de quiz."
+    start_first_quiz: "Commencer mon premier quiz"
+    recent_history: "Historique recent"
+    view_all: "Voir tout"
+
+# Forms
+form:
+    email: "Adresse email"
+    password: "Mot de passe"
+    password_confirm: "Confirmer le mot de passe"
+    first_name: "Prenom"
+    last_name: "Nom"
+    submit: "Valider"
+    cancel: "Annuler"
+    save: "Enregistrer"
+
+# Status
+status:
+    completed: "Termine"
+    in_progress: "En cours"
+    abandoned: "Abandonne"
+    passed: "Reussi"
+    failed: "Echec"
+    active: "Actif"
+    inactive: "Inactif"
+
+# Difficulty
+difficulty:
+    easy: "Facile"
+    medium: "Moyen"
+    hard: "Difficile"
+
+# Admin
+admin:
+    dashboard: "Tableau de bord Admin"
+    users: "Utilisateurs"
+    questions: "Questions"
+    themes: "Themes"
+    manage_questions: "Gestion des questions"
+    manage_themes: "Gestion des themes"
+    manage_users: "Gestion des utilisateurs"
+
+# Auth
+auth:
+    login_title: "Connexion"
+    login_subtitle: "Connectez-vous pour continuer votre progression"
+    register_title: "Inscription"
+    register_subtitle: "Creez votre compte pour commencer a vous entrainer"
+    remember_me: "Se souvenir de moi"
+    no_account: "Pas encore de compte ?"
+    sign_up: "Inscrivez-vous"
+    has_account: "Deja un compte ?"
+    sign_in: "Connectez-vous"
+    create_account: "Creer mon compte"
+
+# Messages
+messages:
+    account_created: "Votre compte a ete cree avec succes ! Vous pouvez maintenant vous connecter."
+    email_exists: "Un compte existe deja avec cet email."
+    profile_updated: "Profil mis a jour avec succes !"
+    quiz_abandoned: "Quiz abandonne."
+    invalid_credentials: "Identifiants invalides."
+
+# Errors
+error:
+    login_failed: "Identifiants invalides"
+    email_exists: "Un compte existe deja avec cet email"
+    password_mismatch: "Les mots de passe ne correspondent pas"
+    required_field: "Ce champ est requis"

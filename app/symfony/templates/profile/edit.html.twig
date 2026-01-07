@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="container container-sm">
+        <div class="card card-no-hover">
+            <div class="card-header">
+                <h1 class="card-title">Modifier mon profil</h1>
+            </div>
+
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    <p class="form-help">L'email ne peut pas etre modifie</p>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--color-gray-200);">
+
+                <h4>Changer de mot de passe</h4>
+                <p class="text-muted mb-4">Laissez vide pour conserver le mot de passe actuel</p>
+
+                <div class="form-group">
+                    {{ form_label(form.newPassword.first) }}
+                    {{ form_widget(form.newPassword.first) }}
+                    {{ form_errors(form.newPassword.first) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.newPassword.second) }}
+                    {{ form_widget(form.newPassword.second) }}
+                    {{ form_errors(form.newPassword.second) }}
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <a href="{{ path('app_profile') }}" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

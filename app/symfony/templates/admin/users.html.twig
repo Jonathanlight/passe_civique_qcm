@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1 class="mb-0">Gestion des utilisateurs</h1>
+            <a href="{{ path('app_admin') }}" class="btn btn-secondary">
+                Retour
+            </a>
+        </div>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Niveau</th>
+                    <th>Quiz reussis</th>
+                    <th>Score moyen</th>
+                    <th>Inscription</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.fullName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.gamificationLevel %}
+                                {{ user.gamificationLevel.emoji }} {{ user.gamificationLevel.name }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>{{ user.totalQuizzesPassed }}</td>
+                        <td>{{ user.averageScore|number_format(1) }}%</td>
+                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                        <td>
+                            {% if user.isActive %}
+                                <span class="status-badge success">Actif</span>
+                            {% else %}
+                                <span class="status-badge danger">Inactif</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

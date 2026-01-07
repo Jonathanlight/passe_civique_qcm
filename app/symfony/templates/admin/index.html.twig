@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="container">
+        <h1 class="mb-8">Tableau de bord Admin</h1>
+
+        <div class="stats-grid mb-8">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">{{ userCount }}</div>
+                <div class="stat-label">Utilisateurs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value">{{ questionCount }}</div>
+                <div class="stat-label">Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">{{ globalStats.totalQuizzes }}</div>
+                <div class="stat-label">Quiz completes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value">{{ globalStats.successRate|number_format(1) }}%</div>
+                <div class="stat-label">Taux de reussite</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <a href="{{ path('app_admin_questions') }}" class="card">
+                <h3>📝 Gestion des questions</h3>
+                <p class="text-muted">{{ questionCount }} questions actives</p>
+            </a>
+
+            <a href="{{ path('app_admin_themes') }}" class="card">
+                <h3>📂 Gestion des themes</h3>
+                <p class="text-muted">Organiser les categories</p>
+            </a>
+
+            <a href="{{ path('app_admin_users') }}" class="card">
+                <h3>👥 Gestion des utilisateurs</h3>
+                <p class="text-muted">{{ userCount }} utilisateurs inscrits</p>
+            </a>
+        </div>
+
+        {% if questionsByTheme|length > 0 %}
+            <h2 class="mt-8 mb-4">Questions par theme</h2>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Theme</th>
+                        <th>Nombre de questions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in questionsByTheme %}
+                        <tr>
+                            <td>{{ stat.themeName }}</td>
+                            <td>{{ stat.questionCount }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

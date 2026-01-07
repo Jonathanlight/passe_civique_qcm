@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmez votre email - Passe Civique</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #0055A4 0%, #003d7a 100%); padding: 30px; text-align: center;">
+                            <div style="margin-bottom: 10px;">
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #0055A4; border-radius: 3px;"></span>
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #ffffff; border-radius: 3px; margin: 0 5px;"></span>
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #EF4135; border-radius: 3px;"></span>
+                            </div>
+                            <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Passe Civique</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <div style="width: 60px; height: 60px; background-color: #dbeafe; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                                    <span style="font-size: 30px;">&#9993;</span>
+                                </div>
+                                <h2 style="color: #111827; margin: 0 0 10px; font-size: 22px;">Confirmez votre email</h2>
+                                <p style="color: #6b7280; margin: 0;">Bienvenue {{ user.firstName }} !</p>
+                            </div>
+
+                            <p style="color: #374151; line-height: 1.6; margin-bottom: 25px;">
+                                Merci de vous etre inscrit sur Passe Civique. Pour activer votre compte et
+                                commencer a preparer votre parcours de citoyennete francaise, veuillez
+                                confirmer votre adresse email en cliquant sur le bouton ci-dessous.
+                            </p>
+
+                            <div style="text-align: center; margin-bottom: 25px;">
+                                <a href="{{ verificationUrl }}" style="display: inline-block; background-color: #0055A4; color: #ffffff; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600;">
+                                    Confirmer mon email
+                                </a>
+                            </div>
+
+                            <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
+                                Ce lien expire dans 24 heures. Si vous n'avez pas cree de compte sur
+                                Passe Civique, vous pouvez ignorer cet email.
+                            </p>
+
+                            <div style="background-color: #f9fafb; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                                <p style="color: #6b7280; font-size: 12px; margin: 0;">
+                                    Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :
+                                </p>
+                                <p style="color: #0055A4; font-size: 12px; word-break: break-all; margin: 10px 0 0;">
+                                    {{ verificationUrl }}
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f9fafb; padding: 20px 30px; border-top: 1px solid #e5e7eb;">
+                            <p style="color: #9ca3af; font-size: 12px; margin: 0; text-align: center;">
+                                Cet email a ete envoye par Passe Civique.<br>
+                                Si vous avez des questions, contactez-nous a contact@passecivique.fr
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

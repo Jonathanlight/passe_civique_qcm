@@ -1,0 +1,68 @@
+parameters:
+    anthropic_api_key: '%env(ANTHROPIC_API_KEY)%'
+    app.email.admin: '%env(APP_EMAIL_ADMIN)%'
+    app.email.service: '%env(APP_EMAIL_SERVICE)%'
+    # Paramètres pour les API Stripe
+    app.stripe.apiKey.public: '%env(STRIPE_API_KEY_PUBLIC)%'
+    app.stripe.apiKey.secret: '%env(STRIPE_API_KEY_SECRET)%'
+    app.stripe.webhook.secret: '%env(STRIPE_WEBHOOK_SECRET)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $anthropicApiKey: '%anthropic_api_key%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+
+    # Service
+    App\Service\Stripe\ProductCreator:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\PaymentMethod:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\PriceCreator:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\SubscriptionCreator:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\SubscriptionCancel:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\PaymentSetupService:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    App\Service\Stripe\CustomerCreator:
+        arguments:
+            $secretKey: '%app.stripe.apiKey.secret%'
+
+    # Mail Services
+    App\Service\Mail\SubscriptionMailerInterface:
+        class: App\Service\Mail\SubscriptionMailer
+        arguments:
+            $adminEmail: '%app.email.admin%'
+            $serviceEmail: '%app.email.service%'
+
+    # Payment Controller
+    App\Controller\PaymentController:
+        arguments:
+            $stripeSecretKey: '%app.stripe.apiKey.secret%'
+            $stripePublicKey: '%app.stripe.apiKey.public%'
+            $stripeWebhookSecret: '%app.stripe.webhook.secret%'
+
+    # Autoconfiguration des OAuth Providers
+    App\Security\OAuth\GoogleAuthenticator:
+        tags: ['security.authenticator']

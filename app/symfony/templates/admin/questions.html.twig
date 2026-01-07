@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des questions{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1 class="mb-0">Gestion des questions</h1>
+            <a href="{{ path('app_admin') }}" class="btn btn-secondary">
+                Retour
+            </a>
+        </div>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Question</th>
+                    <th>Theme</th>
+                    <th>Difficulte</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ question.id }}</td>
+                        <td style="max-width: 400px;">{{ question.content|length > 80 ? question.content|slice(0, 80) ~ '...' : question.content }}</td>
+                        <td>{{ question.theme.name }}</td>
+                        <td>
+                            {% if question.difficulty == 'easy' %}
+                                <span class="status-badge success">Facile</span>
+                            {% elseif question.difficulty == 'medium' %}
+                                <span class="status-badge warning">Moyen</span>
+                            {% else %}
+                                <span class="status-badge danger">Difficile</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ question.isMultipleChoice ? 'QCM' : 'Simple' }}</td>
+                        <td>
+                            {% if question.isActive %}
+                                <span class="status-badge success">Active</span>
+                            {% else %}
+                                <span class="status-badge danger">Inactive</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

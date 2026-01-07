@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultats{% endblock %}
+
+{% block body %}
+<div class="quiz-container">
+    <div class="card results-card card-no-hover">
+        <div class="results-score {{ quiz.isPassed ? 'passed' : 'failed' }}">
+            {{ quiz.scorePercent|number_format(0) }}%
+        </div>
+
+        <div class="results-badge {{ quiz.isPassed ? 'passed' : 'failed' }}">
+            {% if quiz.isPassed %}
+                Felicitations, vous avez reussi !
+            {% else %}
+                Dommage, vous pouvez reessayer
+            {% endif %}
+        </div>
+
+        <div class="results-details">
+            <p>
+                <strong>Bonnes reponses :</strong> {{ quiz.correctAnswers }}/{{ quiz.totalQuestions }}
+            </p>
+            {% if quiz.durationInMinutes %}
+                <p class="text-muted">
+                    Duree : {{ quiz.durationInMinutes }} minute{{ quiz.durationInMinutes > 1 ? 's' : '' }}
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="results-actions">
+            <a href="{{ path('app_quiz_start') }}" class="btn btn-primary">
+                Refaire un quiz
+            </a>
+            <a href="{{ path('app_profile') }}" class="btn btn-secondary">
+                Mon profil
+            </a>
+        </div>
+    </div>
+
+    <h3 class="mt-8 mb-4">Detail des reponses</h3>
+
+    {% for quizAnswer in quiz.quizAnswers %}
+        <div class="review-card {{ quizAnswer.isCorrect ? 'review-card--correct' : 'review-card--incorrect' }}">
+            <div class="review-card__header">
+                <span class="review-card__status">
+                    {% if quizAnswer.isCorrect %}
+                        <span class="review-icon review-icon--correct">✓</span>
+                    {% else %}
+                        <span class="review-icon review-icon--incorrect">✗</span>
+                    {% endif %}
+                </span>
+                <div class="review-card__question">
+                    <span class="review-card__number">Question {{ loop.index }}</span>
+                    <span class="review-card__theme">{{ quizAnswer.question.theme.name }}</span>
+                </div>
+            </div>
+
+            <div class="review-card__content">
+                {{ quizAnswer.question.content }}
+                {% if quizAnswer.question.isMultipleChoice %}
+                    <span class="review-card__multiple">(Choix multiples)</span>
+                {% endif %}
+            </div>
+
+            <div class="review-card__answers">
+                {% for answer in quizAnswer.question.answers %}
+                    {% set wasSelected = quizAnswer.wasAnswerSelected(answer) %}
+                    {% set isCorrect = answer.isCorrect %}
+
+                    <div class="review-answer
+                        {% if isCorrect %}review-answer--correct{% endif %}
+                        {% if wasSelected and not isCorrect %}review-answer--wrong{% endif %}
+                        {% if wasSelected %}review-answer--selected{% endif %}
+                    ">
+                        <span class="review-answer__indicator">
+                            {% if isCorrect %}
+                                <span class="indicator-correct">✓</span>
+                            {% endif %}
+                            {% if wasSelected and not isCorrect %}
+                                <span class="indicator-wrong">✗</span>
+                            {% endif %}
+                        </span>
+                        <span class="review-answer__text">{{ answer.content }}</span>
+                        {% if wasSelected %}
+                            <span class="review-answer__badge">Votre reponse</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if quizAnswer.question.explanation and not quizAnswer.isCorrect %}
+                <div class="review-card__explanation">
+                    <strong>Explication :</strong> {{ quizAnswer.question.explanation }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="results-bottom-actions">
+        <a href="{{ path('app_quiz_start') }}" class="btn btn-primary">
+            Refaire un quiz
+        </a>
+        <a href="{{ path('app_profile') }}" class="btn btn-secondary">
+            Retour au profil
+        </a>
+    </div>
+</div>
+{% endblock %}

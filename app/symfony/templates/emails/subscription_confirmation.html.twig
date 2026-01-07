@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'abonnement - Passe Civique</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #0055A4 0%, #003d7a 100%); padding: 30px; text-align: center;">
+                            <div style="margin-bottom: 10px;">
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #0055A4; border-radius: 3px;"></span>
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #ffffff; border-radius: 3px; margin: 0 5px;"></span>
+                                <span style="display: inline-block; width: 40px; height: 6px; background-color: #EF4135; border-radius: 3px;"></span>
+                            </div>
+                            <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Passe Civique</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <div style="width: 60px; height: 60px; background-color: #d1fae5; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                                    <span style="font-size: 30px; color: #10b981;">&#10003;</span>
+                                </div>
+                                <h2 style="color: #111827; margin: 0 0 10px; font-size: 22px;">Paiement confirme !</h2>
+                                <p style="color: #6b7280; margin: 0;">Merci pour votre confiance, {{ user.firstName }}</p>
+                            </div>
+
+                            <div style="background-color: #f9fafb; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                                <h3 style="color: #374151; margin: 0 0 15px; font-size: 16px;">Details de votre abonnement</h3>
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="color: #6b7280; padding: 8px 0;">Plan</td>
+                                        <td style="color: #111827; padding: 8px 0; text-align: right; font-weight: 600;">{{ package.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #6b7280; padding: 8px 0;">Montant</td>
+                                        <td style="color: #111827; padding: 8px 0; text-align: right; font-weight: 600;">{{ subscription.amountPaid|number_format(2, ',', ' ') }} EUR</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #6b7280; padding: 8px 0;">Debut</td>
+                                        <td style="color: #111827; padding: 8px 0; text-align: right;">{{ subscription.startDate|date('d/m/Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #6b7280; padding: 8px 0;">Fin</td>
+                                        <td style="color: #111827; padding: 8px 0; text-align: right;">{{ subscription.endDate|date('d/m/Y') }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="margin-bottom: 30px;">
+                                <h3 style="color: #374151; margin: 0 0 15px; font-size: 16px;">Vous avez maintenant acces a :</h3>
+                                <ul style="color: #6b7280; margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li>Quiz illimites sur tous les themes</li>
+                                    <li>Mode examen officiel</li>
+                                    <li>Suivi detaille de votre progression</li>
+                                    <li>Historique complet de vos resultats</li>
+                                </ul>
+                            </div>
+
+                            <div style="text-align: center;">
+                                <a href="{{ profileUrl }}" style="display: inline-block; background-color: #0055A4; color: #ffffff; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600;">
+                                    Commencer un quiz
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f9fafb; padding: 20px 30px; border-top: 1px solid #e5e7eb;">
+                            <p style="color: #9ca3af; font-size: 12px; margin: 0; text-align: center;">
+                                Cet email a ete envoye par Passe Civique.<br>
+                                Si vous avez des questions, contactez-nous a contact@passecivique.fr
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

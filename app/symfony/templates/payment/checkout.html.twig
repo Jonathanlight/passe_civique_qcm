@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement - {{ package.name }} - Passe Civique{% endblock %}
+
+{% block body %}
+<section class="page-content">
+    <div class="container">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <a href="{{ path('app_pricing') }}" class="checkout-back">
+                    &#8592; Retour aux tarifs
+                </a>
+                <h1 class="checkout-title">Finaliser votre abonnement</h1>
+            </div>
+
+            <div class="checkout-grid">
+                <div class="checkout-summary">
+                    <div class="summary-card">
+                        <h3 class="summary-title">Recapitulatif</h3>
+
+                        <div class="summary-package">
+                            <div class="package-icon">&#127919;</div>
+                            <div class="package-details">
+                                <h4>{{ package.name }}</h4>
+                                <p>Abonnement {{ package.durationInMonths }} mois</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-features">
+                            <h5>Ce qui est inclus :</h5>
+                            <ul>
+                                <li><span class="check">&#10003;</span> Quiz illimites</li>
+                                <li><span class="check">&#10003;</span> Tous les themes officiels</li>
+                                <li><span class="check">&#10003;</span> Mode examen</li>
+                                <li><span class="check">&#10003;</span> Suivi de progression</li>
+                                <li><span class="check">&#10003;</span> Resultats detailles</li>
+                            </ul>
+                        </div>
+
+                        <div class="summary-price">
+                            <div class="price-row">
+                                <span>Sous-total</span>
+                                <span>{{ package.price|number_format(2, ',', ' ') }} EUR</span>
+                            </div>
+                            <div class="price-row price-total">
+                                <span>Total</span>
+                                <span>{{ package.price|number_format(2, ',', ' ') }} EUR</span>
+                            </div>
+                            <p class="price-info">
+                                Soit {{ package.monthlyPrice|number_format(2, ',', ' ') }} EUR/mois
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-payment"
+                     data-controller="stripe"
+                     data-stripe-public-key-value="{{ stripePublicKey }}"
+                     data-stripe-checkout-url-value="{{ path('app_create_checkout_session', {id: package.id}) }}"
+                     data-stripe-package-id-value="{{ package.id }}">
+
+                    <div class="payment-card">
+                        <h3 class="payment-title">Paiement securise</h3>
+
+                        <div class="payment-user-info">
+                            <p><strong>{{ app.user.fullName }}</strong></p>
+                            <p>{{ app.user.email }}</p>
+                        </div>
+
+                        <div class="payment-methods-info">
+                            <p>Cartes acceptees :</p>
+                            <div class="cards-icons">
+                                <span class="card-icon card-visa">VISA</span>
+                                <span class="card-icon card-mastercard">MC</span>
+                                <span class="card-icon card-cb">CB</span>
+                            </div>
+                        </div>
+
+                        <div class="error-message hidden" data-stripe-target="errorMessage"></div>
+
+                        <button type="button"
+                                class="btn btn-primary btn-lg btn-block checkout-btn"
+                                data-action="click->stripe#checkout"
+                                data-stripe-target="submitButton">
+                            <span data-stripe-target="buttonText">
+                                Payer {{ package.price|number_format(2, ',', ' ') }} EUR
+                            </span>
+                            <span class="loading-spinner hidden" data-stripe-target="loadingSpinner">
+                                <span class="spinner"></span>
+                                Redirection vers Stripe...
+                            </span>
+                        </button>
+
+                        <div class="payment-security">
+                            <div class="security-badge">
+                                <span class="lock-icon">&#128274;</span>
+                                <span>Paiement securise SSL</span>
+                            </div>
+                            <p class="security-text">
+                                Vos informations de paiement sont traitees de maniere securisee par Stripe.
+                                Nous ne stockons pas vos donnees bancaires.
+                            </p>
+                        </div>
+
+                        <div class="payment-terms">
+                            <p>
+                                En cliquant sur "Payer", vous acceptez nos
+                                <a href="{{ path('app_cgu') }}" target="_blank">conditions d'utilisation</a>
+                                et notre
+                                <a href="{{ path('app_privacy') }}" target="_blank">politique de confidentialite</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

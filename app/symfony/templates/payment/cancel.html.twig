@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement annule - Passe Civique{% endblock %}
+
+{% block body %}
+<section class="page-content">
+    <div class="container">
+        <div class="payment-result payment-cancel">
+            <div class="result-icon cancel-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <circle cx="40" cy="40" r="38" stroke="#f59e0b" stroke-width="4"/>
+                    <path d="M28 28L52 52M52 28L28 52" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <h1 class="result-title">Paiement annule</h1>
+            <p class="result-subtitle">Votre paiement n'a pas ete effectue</p>
+
+            <div class="result-message">
+                <p>
+                    Vous avez annule le processus de paiement. Aucun montant n'a ete debite de votre compte.
+                </p>
+                <p>
+                    Si vous avez rencontre un probleme, n'hesitez pas a reessayer ou a nous contacter.
+                </p>
+            </div>
+
+            <div class="result-actions">
+                <a href="{{ path('app_pricing') }}" class="btn btn-primary btn-lg">
+                    Voir les tarifs
+                </a>
+                <a href="{{ path('app_home') }}" class="btn btn-secondary btn-lg">
+                    Retour a l'accueil
+                </a>
+            </div>
+
+            <div class="result-help">
+                <h4>Besoin d'aide ?</h4>
+                <p>
+                    Si vous avez des questions concernant nos abonnements ou si vous avez
+                    rencontre un probleme technique, contactez-nous a
+                    <a href="mailto:contact@passecivique.fr">contact@passecivique.fr</a>
+                </p>
+            </div>
+
+            <div class="free-quiz-reminder">
+                <h4>Rappel</h4>
+                <p>
+                    Vous pouvez toujours utiliser vos quiz gratuits pour decouvrir la plateforme.
+                    {% if app.user.remainingFreeQuizzes > 0 %}
+                        Il vous reste <strong>{{ app.user.remainingFreeQuizzes }}</strong> quiz gratuit{{ app.user.remainingFreeQuizzes > 1 ? 's' : '' }}.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

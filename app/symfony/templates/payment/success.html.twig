@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement reussi - Passe Civique{% endblock %}
+
+{% block body %}
+<section class="page-content">
+    <div class="container">
+        <div class="payment-result payment-success">
+            <div class="result-icon success-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <circle cx="40" cy="40" r="38" stroke="#10b981" stroke-width="4"/>
+                    <path d="M24 40L35 51L56 30" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <h1 class="result-title">Paiement reussi !</h1>
+            <p class="result-subtitle">Merci pour votre confiance</p>
+
+            <div class="result-details">
+                <div class="detail-card">
+                    <h3>Details de votre abonnement</h3>
+                    <dl class="details-list">
+                        <div class="detail-row">
+                            <dt>Plan</dt>
+                            <dd>{{ subscription.package.name }}</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Montant</dt>
+                            <dd>{{ subscription.amountPaid|number_format(2, ',', ' ') }} EUR</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Date de debut</dt>
+                            <dd>{{ subscription.startDate|date('d/m/Y') }}</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Date de fin</dt>
+                            <dd>{{ subscription.endDate|date('d/m/Y') }}</dd>
+                        </div>
+                        {% if subscription.stripeInvoiceUrl %}
+                        <div class="detail-row">
+                            <dt>Facture</dt>
+                            <dd>
+                                <a href="{{ subscription.stripeInvoiceUrl }}" target="_blank" class="invoice-link">
+                                    Telecharger &#8599;
+                                </a>
+                            </dd>
+                        </div>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+
+            <div class="result-message">
+                <p>
+                    Un email de confirmation a ete envoye a <strong>{{ app.user.email }}</strong>
+                    avec les details de votre abonnement.
+                </p>
+            </div>
+
+            <div class="result-actions">
+                <a href="{{ path('app_quiz_start') }}" class="btn btn-primary btn-lg">
+                    Commencer un quiz
+                </a>
+                <a href="{{ path('app_profile') }}" class="btn btn-secondary btn-lg">
+                    Voir mon profil
+                </a>
+            </div>
+
+            <div class="result-features">
+                <h4>Vous avez maintenant acces a :</h4>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">&#128214;</span>
+                        <span>Quiz illimites</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">&#127919;</span>
+                        <span>Mode examen</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">&#128200;</span>
+                        <span>Suivi de progression</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">&#128203;</span>
+                        <span>Resultats detailles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

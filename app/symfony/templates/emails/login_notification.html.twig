@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle connexion detectee</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: #ffffff; }
+        .header { background: linear-gradient(135deg, #0055A4 0%, #003d7a 100%); color: white; padding: 25px; text-align: center; }
+        .header h1 { margin: 0; font-size: 22px; }
+        .flag-bar { height: 6px; display: flex; }
+        .flag-blue { flex: 1; background: #0055A4; }
+        .flag-white { flex: 1; background: #ffffff; }
+        .flag-red { flex: 1; background: #EF4135; }
+        .content { padding: 30px; }
+        .alert-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .alert-icon { font-size: 24px; margin-right: 10px; }
+        .info-card { background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .info-row { display: flex; padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { font-size: 20px; width: 35px; }
+        .info-label { font-weight: 600; color: #6b7280; width: 120px; }
+        .info-value { color: #1f2937; flex: 1; }
+        .btn { display: inline-block; padding: 12px 24px; background: #0055A4; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
+        .btn-danger { background: #EF4135; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 12px; }
+        .security-note { background: #fee2e2; border: 1px solid #fecaca; border-radius: 8px; padding: 15px; margin: 20px 0; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nouvelle connexion detectee</h1>
+        </div>
+        <div class="flag-bar">
+            <div class="flag-blue"></div>
+            <div class="flag-white"></div>
+            <div class="flag-red"></div>
+        </div>
+        <div class="content">
+            <div class="alert-box">
+                <span class="alert-icon">&#128274;</span>
+                <strong>Connexion a votre compte</strong>
+            </div>
+
+            <p>Bonjour <strong>{{ user.firstName }}</strong>,</p>
+
+            <p>Une nouvelle connexion a ete effectuee sur votre compte Passe Civique. Voici les details :</p>
+
+            <div class="info-card">
+                <div class="info-row">
+                    <span class="info-icon">&#128197;</span>
+                    <span class="info-label">Date et heure</span>
+                    <span class="info-value">{{ loginInfo.datetime|date('d/m/Y H:i:s') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">&#127760;</span>
+                    <span class="info-label">Adresse IP</span>
+                    <span class="info-value">{{ loginInfo.ip }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">&#128187;</span>
+                    <span class="info-label">Appareil</span>
+                    <span class="info-value">{{ loginInfo.device }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">&#128421;</span>
+                    <span class="info-label">Systeme</span>
+                    <span class="info-value">{{ loginInfo.os }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">&#127758;</span>
+                    <span class="info-label">Navigateur</span>
+                    <span class="info-value">{{ loginInfo.browser }}</span>
+                </div>
+            </div>
+
+            <div class="security-note">
+                <strong>&#9888; Ce n'etait pas vous ?</strong><br>
+                Si vous n'etes pas a l'origine de cette connexion, nous vous recommandons de changer immediatement votre mot de passe et de contacter notre support.
+            </div>
+
+            <p style="text-align: center; margin-top: 25px;">
+                <a href="{{ profileUrl }}" class="btn">Acceder a mon compte</a>
+            </p>
+
+            <p style="color: #6b7280; font-size: 14px; margin-top: 30px;">
+                Cet email est envoye automatiquement pour votre securite lors de chaque premiere connexion de la journee.
+            </p>
+        </div>
+        <div class="footer">
+            <p>Passe Civique - Securite du compte<br>
+            Cet email a ete envoye a {{ user.email }}</p>
+        </div>
+    </div>
+</body>
+</html>

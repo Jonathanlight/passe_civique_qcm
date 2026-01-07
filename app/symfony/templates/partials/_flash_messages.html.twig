@@ -1,0 +1,12 @@
+{% if app.flashes|length > 0 %}
+<div class="flash-messages">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-message {{ type }}" data-controller="flash" data-flash-timeout-value="5000">
+                <span>{{ message }}</span>
+                <button type="button" class="flash-close" data-action="click->flash#dismiss">&times;</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endif %}

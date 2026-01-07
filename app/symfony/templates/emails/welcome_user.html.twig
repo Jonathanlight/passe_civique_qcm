@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue sur Passe Civique</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: #ffffff; }
+        .header { background: linear-gradient(135deg, #0055A4 0%, #003d7a 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; }
+        .flag-bar { height: 8px; display: flex; }
+        .flag-blue { flex: 1; background: #0055A4; }
+        .flag-white { flex: 1; background: #ffffff; }
+        .flag-red { flex: 1; background: #EF4135; }
+        .content { padding: 30px; }
+        .welcome-icon { font-size: 48px; text-align: center; margin-bottom: 20px; }
+        .btn { display: inline-block; padding: 14px 28px; background: #0055A4; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 10px 5px; }
+        .btn-secondary { background: #10b981; }
+        .feature-list { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .feature-list li { margin: 10px 0; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bienvenue sur Passe Civique !</h1>
+        </div>
+        <div class="flag-bar">
+            <div class="flag-blue"></div>
+            <div class="flag-white"></div>
+            <div class="flag-red"></div>
+        </div>
+        <div class="content">
+            <div class="welcome-icon">🎉</div>
+
+            <p>Bonjour <strong>{{ user.firstName }}</strong>,</p>
+
+            <p>Felicitations ! Votre compte Passe Civique a ete cree avec succes.</p>
+
+            <p>Vous etes maintenant pret a vous preparer pour le test de citoyennete francaise avec nos quiz interactifs.</p>
+
+            <div class="feature-list">
+                <h3>Ce qui vous attend :</h3>
+                <ul>
+                    <li><strong>2 quiz gratuits</strong> pour decouvrir la plateforme</li>
+                    <li>Questions basees sur le <strong>programme officiel</strong></li>
+                    <li>Resultats detailles apres chaque quiz</li>
+                    <li>Suivi de votre progression</li>
+                </ul>
+            </div>
+
+            <p style="text-align: center;">
+                <a href="{{ quizUrl }}" class="btn">Commencer un quiz</a>
+                <a href="{{ profileUrl }}" class="btn btn-secondary">Mon profil</a>
+            </p>
+
+            <p>Bonne preparation !</p>
+
+            <p>L'equipe Passe Civique</p>
+        </div>
+        <div class="footer">
+            <p>Cet email a ete envoye par Passe Civique.<br>
+            Si vous n'avez pas cree de compte, veuillez ignorer cet email.</p>
+        </div>
+    </div>
+</body>
+</html>

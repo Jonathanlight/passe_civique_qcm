@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Accueil{% endblock %} | Passe Civique</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>🇫🇷</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% include 'partials/_navbar.html.twig' %}
+
+        {% if app.user and not app.user.verified %}
+            <div class="verification-banner">
+                <div class="container">
+                    <span class="verification-icon">&#9993;</span>
+                    <span>Verifiez votre email pour securiser votre compte.</span>
+                    <a href="{{ path('app_resend_verification', {email: app.user.email}) }}" class="verification-link">Renvoyer l'email</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {% include 'partials/_flash_messages.html.twig' %}
+
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        {% include 'partials/_footer.html.twig' %}
+    </body>
+</html>

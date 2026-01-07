@@ -1,0 +1,31 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="{{ asset('images/logo-navbar.svg') }}" alt="Passe Civique" class="footer-logo">
+                Passe Civique
+            </div>
+
+            <div class="footer-links">
+                <a href="{{ path('app_home') }}">Accueil</a>
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_quiz_start') }}">Quiz</a>
+                    <a href="{{ path('app_profile') }}">Profil</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Connexion</a>
+                    <a href="{{ path('app_register') }}">Inscription</a>
+                {% endif %}
+            </div>
+
+            <div class="footer-legal">
+                <a href="{{ path('app_cgu') }}">Conditions d'utilisation</a>
+                <a href="{{ path('app_privacy') }}">Politique de confidentialite</a>
+                <a href="{{ path('app_legal_notices') }}">Mentions legales</a>
+            </div>
+
+            <div class="text-muted">
+                &copy; {{ "now"|date("Y") }} Passe Civique - Tous droits reserves
+            </div>
+        </div>
+    </div>
+</footer>

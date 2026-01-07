@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question {{ currentIndex }}{% endblock %}
+
+{% block body %}
+<div class="quiz-container"
+     data-controller="quiz"
+     data-quiz-time-limit-value="{{ config.timeLimitMinutes ?? 0 }}"
+     data-quiz-multiple-value="{{ question.isMultipleChoice ? '1' : '0' }}">
+
+    <div class="quiz-header">
+        <span class="quiz-progress-text">
+            Question {{ currentIndex }} sur {{ totalQuestions }}
+        </span>
+        {% if config.timeLimitMinutes %}
+            <span class="quiz-timer" data-quiz-target="timer">
+                {{ config.timeLimitMinutes }}:00
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="progress mb-6">
+        <div class="progress-bar" style="width: {{ progress }}%;" data-quiz-target="progress"></div>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">
+            {{ question.content }}
+            {% if question.isMultipleChoice %}
+                <span class="text-muted" style="font-size: 0.875rem; display: block; margin-top: 0.5rem;">
+                    (Plusieurs reponses possibles)
+                </span>
+            {% endif %}
+        </div>
+
+        <form action="{{ path('app_quiz_answer', {id: quiz.id}) }}" method="post">
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+
+            {% for answer in answers %}
+                <label class="answer-option"
+                       data-quiz-target="answer"
+                       data-action="click->quiz#selectAnswer"
+                       data-answer-id="{{ answer.id }}">
+                    <input type="{{ question.isMultipleChoice ? 'checkbox' : 'radio' }}"
+                           name="answers[]"
+                           value="{{ answer.id }}">
+                    {{ answer.content }}
+                </label>
+            {% endfor %}
+
+            <div class="quiz-actions">
+                <a href="{{ path('app_quiz_abandon', {id: quiz.id}) }}"
+                   class="btn btn-secondary"
+                   onclick="return confirm('Etes-vous sur de vouloir abandonner ce quiz ?')">
+                    Abandonner
+                </a>
+                <button type="submit" class="btn btn-primary" data-quiz-target="submitBtn" disabled>
+                    {% if currentIndex == totalQuestions %}
+                        Terminer le quiz
+                    {% else %}
+                        Question suivante
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

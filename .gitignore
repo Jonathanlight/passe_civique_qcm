@@ -99,3 +99,4 @@ app/symfony/assets/styles/documentation.css
 app/symfony/src/Controller/TestComponentController.php
 /app/symfony/public/var/
 /app/symfony/public/var/
+/app/symfony/public/.htaccess

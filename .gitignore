@@ -14,6 +14,9 @@ Thumbs.db
 CLAUDE.md
 public/var/
 
+/app/symfony/.env
+/app/symfony/.env.local
+
 docker-compose.override.yml
 docker-compose.yml
 

@@ -1,0 +1,20 @@
+{
+    "@symfony\/stimulus-bundle\/controllers.js": "\/assets\/@symfony\/stimulus-bundle\/controllers-Nkp3nFF.js",
+    "@symfony\/stimulus-bundle\/loader.js": "\/assets\/@symfony\/stimulus-bundle\/loader-V1GtHuK.js",
+    "@symfony\/ux-turbo\/turbo_controller.js": "\/assets\/@symfony\/ux-turbo\/turbo_controller-8wQNi2p.js",
+    "@symfony\/ux-turbo\/turbo_stream_controller.js": "\/assets\/@symfony\/ux-turbo\/turbo_stream_controller-LcKyCZE.js",
+    "app.js": "\/assets\/app-TNXHCQF.js",
+    "controllers\/animation_controller.js": "\/assets\/controllers\/animation_controller-nVvr9CH.js",
+    "controllers\/csrf_protection_controller.js": "\/assets\/controllers\/csrf_protection_controller-6ynUAeX.js",
+    "controllers\/flash_controller.js": "\/assets\/controllers\/flash_controller-GVQnxNy.js",
+    "controllers\/hello_controller.js": "\/assets\/controllers\/hello_controller-VYgvytJ.js",
+    "controllers\/quiz_controller.js": "\/assets\/controllers\/quiz_controller-k_iFK8z.js",
+    "controllers\/stripe_controller.js": "\/assets\/controllers\/stripe_controller-9md9tX7.js",
+    "images\/logo-hero.svg": "\/assets\/images\/logo-hero-K_RPm7c.svg",
+    "images\/logo-navbar.svg": "\/assets\/images\/logo-navbar-GjSq6DL.svg",
+    "images\/logo.svg": "\/assets\/images\/logo-vzR3piS.svg",
+    "stimulus_bootstrap.js": "\/assets\/stimulus_bootstrap-xCO4u8H.js",
+    "styles\/app.css": "\/assets\/styles\/app-cY4MUYk.css",
+    "vendor\/@hotwired\/stimulus\/stimulus.index.js": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-S4zNcea.js",
+    "vendor\/@hotwired\/turbo\/turbo.index.js": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-pT15T6h.js"
+}

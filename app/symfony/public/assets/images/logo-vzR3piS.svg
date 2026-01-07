@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" width="120" height="60">
+  <!-- Background with French flag gradient -->
+  <defs>
+    <linearGradient id="flagGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0055A4"/>
+      <stop offset="33%" style="stop-color:#0055A4"/>
+      <stop offset="33%" style="stop-color:#FFFFFF"/>
+      <stop offset="66%" style="stop-color:#FFFFFF"/>
+      <stop offset="66%" style="stop-color:#EF4135"/>
+      <stop offset="100%" style="stop-color:#EF4135"/>
+    </linearGradient>
+    <clipPath id="circleClip">
+      <circle cx="30" cy="30" r="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- Circle background with flag colors -->
+  <circle cx="30" cy="30" r="28" fill="url(#flagGradient)" opacity="0.15"/>
+  <circle cx="30" cy="30" r="28" fill="none" stroke="#0055A4" stroke-width="2"/>
+
+  <!-- Welcoming group (left side - 3 people) -->
+  <!-- Person 1 (blue) -->
+  <circle cx="18" cy="22" r="5" fill="#0055A4"/>
+  <path d="M18 28 L18 42 M12 34 L24 34 M18 42 L13 52 M18 42 L23 52" stroke="#0055A4" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Person 2 (white/gray outline) -->
+  <circle cx="30" cy="20" r="5" fill="#FFFFFF" stroke="#374151" stroke-width="1.5"/>
+  <path d="M30 26 L30 40 M24 32 L36 32 M30 40 L25 50 M30 40 L35 50" stroke="#374151" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Person 3 (red) -->
+  <circle cx="42" cy="22" r="5" fill="#EF4135"/>
+  <path d="M42 28 L42 42 M36 34 L48 34 M42 42 L37 52 M42 42 L47 52" stroke="#EF4135" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Arrow welcoming -->
+  <path d="M52 30 L62 30" stroke="#0055A4" stroke-width="2" stroke-linecap="round"/>
+  <path d="M58 26 L62 30 L58 34" stroke="#0055A4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Welcomed person (darker skin tone) -->
+  <circle cx="75" cy="24" r="6" fill="#8B5A2B"/>
+  <path d="M75 31 L75 46 M67 38 L83 38 M75 46 L69 56 M75 46 L81 56" stroke="#8B5A2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Welcoming hands/hearts -->
+  <path d="M85 20 C87 16, 92 16, 92 21 C92 25, 87 28, 85 30 C83 28, 78 25, 78 21 C78 16, 83 16, 85 20" fill="#EF4135" opacity="0.8"/>
+
+  <!-- Small stars representing hope -->
+  <path d="M95 35 L96.5 39 L101 39 L97.5 42 L99 46 L95 43.5 L91 46 L92.5 42 L89 39 L93.5 39 Z" fill="#0055A4" opacity="0.6"/>
+  <path d="M105 25 L106 28 L109 28 L106.5 30 L107.5 33 L105 31 L102.5 33 L103.5 30 L101 28 L104 28 Z" fill="#EF4135" opacity="0.6"/>
+</svg>

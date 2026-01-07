@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0055A4"/>
+      <stop offset="100%" style="stop-color:#003d7a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="url(#bgGrad)"/>
+
+  <!-- Diverse group of people in circle -->
+  <!-- Person 1 (left) - Light skin -->
+  <circle cx="11" cy="18" r="4" fill="#FDEBD0"/>
+  <ellipse cx="11" cy="30" rx="4" ry="6" fill="#FFFFFF"/>
+
+  <!-- Person 2 (center-left) - Medium brown skin -->
+  <circle cx="19" cy="15" r="4.5" fill="#C68642"/>
+  <ellipse cx="19" cy="28" rx="4.5" ry="7" fill="#FFFFFF"/>
+
+  <!-- Person 3 (center) - Dark brown skin -->
+  <circle cx="28" cy="15" r="4.5" fill="#8B5A2B"/>
+  <ellipse cx="28" cy="28" rx="4.5" ry="7" fill="#FFFFFF"/>
+
+  <!-- Person 4 (right) - Asian skin tone -->
+  <circle cx="36" cy="18" r="4" fill="#F5DEB3"/>
+  <ellipse cx="36" cy="30" rx="4" ry="6" fill="#FFFFFF"/>
+
+  <!-- Connection arc (unity) -->
+  <path d="M14 22 Q24 12, 34 22" stroke="#EF4135" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Small heart in center -->
+  <path d="M24 38 C25.5 36, 28 36, 28 38.5 C28 41, 24 43, 24 43 C24 43, 20 41, 20 38.5 C20 36, 22.5 36, 24 38" fill="#EF4135"/>
+
+  <!-- Tricolor accent at bottom -->
+  <rect x="8" y="44" width="10" height="2.5" rx="1" fill="#0055A4"/>
+  <rect x="19" y="44" width="10" height="2.5" rx="1" fill="#FFFFFF"/>
+  <rect x="30" y="44" width="10" height="2.5" rx="1" fill="#EF4135"/>
+</svg>

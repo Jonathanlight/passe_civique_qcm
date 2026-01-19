@@ -6,7 +6,8 @@
       "Bash(make migrate:*)",
       "Bash(make compile:*)",
       "Bash(make restart:*)",
-      "Bash(docker compose exec:*)"
+      "Bash(docker compose exec:*)",
+      "Bash(make run:*)"
     ]
   }
 }

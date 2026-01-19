@@ -2,36 +2,40 @@
 
 {% block title %}Demarrer un quiz{% endblock %}
 
+{% block meta_description %}Choisissez votre mode de quiz pour preparer votre citoyennete francaise. Plusieurs niveaux de difficulte disponibles.{% endblock %}
+
 {% block body %}
 <div class="page-content">
     <div class="container">
         <h1 class="text-center mb-2">Choisissez votre mode de quiz</h1>
         <p class="text-center text-muted mb-4">Selectionnez le type de quiz qui vous convient</p>
 
-        <div class="config-grid">
+        <div class="config-grid" role="list" aria-label="Modes de quiz disponibles">
             {% for config in configurations %}
-                <div class="config-card {{ config.isDefault ? 'default' }}">
-                    <div class="difficulty-banner difficulty-{{ config.difficultyColor }}">
+                <article class="config-card {{ config.isDefault ? 'default' }}" role="listitem">
+                    <div class="difficulty-banner difficulty-{{ config.difficultyColor }}" aria-label="Niveau {{ config.difficultyLabel }}">
                         {{ config.difficultyLabel }}
                     </div>
 
-                    <h3 class="config-name">{{ config.name }}</h3>
+                    <h2 class="config-name">{{ config.name }}</h2>
                     <p class="config-description">{{ config.description }}</p>
 
-                    <div class="config-details">
-                        <span class="config-detail">{{ config.questionsCount }} questions</span>
-                        <span class="config-detail">{{ config.minimumCorrectAnswers }} min. requises</span>
+                    <ul class="config-details" aria-label="Details du quiz">
+                        <li class="config-detail">{{ config.questionsCount }} questions</li>
+                        <li class="config-detail">{{ config.minimumCorrectAnswers }} min. requises</li>
                         {% if config.timeLimitMinutes %}
-                            <span class="config-detail">{{ config.timeLimitMinutes }} min</span>
+                            <li class="config-detail">{{ config.timeLimitMinutes }} min</li>
                         {% else %}
-                            <span class="config-detail">Sans limite</span>
+                            <li class="config-detail">Sans limite</li>
                         {% endif %}
-                    </div>
+                    </ul>
 
-                    <a href="{{ path('app_quiz_create', {id: config.id}) }}" class="btn btn-primary btn-block">
+                    <a href="{{ path('app_quiz_create', {id: config.id}) }}"
+                       class="btn btn-primary btn-block"
+                       aria-label="Commencer le quiz {{ config.name }}">
                         Commencer
                     </a>
-                </div>
+                </article>
             {% endfor %}
         </div>
     </div>

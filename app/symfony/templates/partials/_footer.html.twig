@@ -1,12 +1,12 @@
-<footer class="footer">
+<footer class="footer" role="contentinfo">
     <div class="container">
         <div class="footer-content">
             <div class="footer-brand">
-                <img src="{{ asset('images/logo-navbar.svg') }}" alt="Passe Civique" class="footer-logo">
-                Passe Civique
+                <img src="{{ asset('images/logo-navbar.svg') }}" alt="" class="footer-logo" aria-hidden="true">
+                <span>Passe Civique</span>
             </div>
 
-            <div class="footer-links">
+            <nav class="footer-links" aria-label="Liens rapides">
                 <a href="{{ path('app_home') }}">Accueil</a>
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('app_quiz_start') }}">Quiz</a>
@@ -15,17 +15,17 @@
                     <a href="{{ path('app_login') }}">Connexion</a>
                     <a href="{{ path('app_register') }}">Inscription</a>
                 {% endif %}
-            </div>
+            </nav>
 
-            <div class="footer-legal">
+            <nav class="footer-legal" aria-label="Informations legales">
                 <a href="{{ path('app_cgu') }}">Conditions d'utilisation</a>
                 <a href="{{ path('app_privacy') }}">Politique de confidentialite</a>
                 <a href="{{ path('app_legal_notices') }}">Mentions legales</a>
-            </div>
+            </nav>
 
-            <div class="text-muted">
-                &copy; {{ "now"|date("Y") }} Passe Civique - Tous droits reserves
-            </div>
+            <p class="text-muted">
+                <small>&copy; {{ "now"|date("Y") }} Passe Civique - Tous droits reserves</small>
+            </p>
         </div>
     </div>
 </footer>

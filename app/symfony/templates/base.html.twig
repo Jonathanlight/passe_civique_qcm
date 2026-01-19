@@ -3,47 +3,115 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Accueil{% endblock %} | Passe Civique</title>
-        <meta name="google-site-verification" content="4CvTEhnHib4RX2liJUGqmaPX-jCEgeS9jLGGT5_W9QI" />
+        <title>{% block title %}Passe Civique{% endblock %} | Question pour le passe civique</title>
+
+        {# SEO Meta Tags #}
+        <meta name="description" content="{% block meta_description %}Preparez votre parcours d'integration republicaine et devenez citoyen francais avec Passe Civique. Quiz interactifs sur l'histoire, la culture et les valeurs de la France.{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}citoyennete francaise, naturalisation, quiz citoyennete, integration republicaine, test de francais, culture francaise, histoire de France{% endblock %}">
+        <meta name="author" content="Passe Civique">
+        <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+
+        {# Canonical URL #}
+        {% block canonical %}
+        <link rel="canonical" href="{{ app.request.schemeAndHttpHost }}{{ app.request.pathInfo }}">
+        {% endblock %}
+
+        {# Open Graph Tags #}
+        <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+        <meta property="og:title" content="{% block og_title %}{{ block('title') }} | Passe Civique{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}{{ block('meta_description') }}{% endblock %}">
+        <meta property="og:url" content="{{ app.request.uri }}">
+        <meta property="og:site_name" content="Passe Civique">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="og:image" content="{% block og_image %}{{ absolute_url(asset('images/og-image.png')) }}{% endblock %}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+
+        {# Twitter Card Tags #}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ block('og_title') }}">
+        <meta name="twitter:description" content="{{ block('og_description') }}">
+        <meta name="twitter:image" content="{{ block('og_image') }}">
+
+        {# Theme Color #}
+        <meta name="theme-color" content="#0055A4">
+
+        {# Google Verification #}
+        <meta name="google-site-verification" content="4CvTEhnHib4RX2liJUGqmaPX-jCEgeS9jLGGT5_W9QI">
+
+        {# Favicon #}
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>🇫🇷</text></svg>">
+        <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+
+        {# Fonts #}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <!-- Google Tag Manager -->
+
+        {# Google Tag Manager #}
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-WLJDPP3N');</script>
-        <!-- End Google Tag Manager -->
+
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+
+        {# Structured Data #}
+        {% block structured_data %}
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Passe Civique",
+            "url": "{{ app.request.schemeAndHttpHost }}",
+            "description": "Preparez votre parcours d'integration republicaine et devenez citoyen francais",
+            "inLanguage": "fr-FR",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{{ app.request.schemeAndHttpHost }}/recherche?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+        </script>
+        {% endblock %}
     </head>
     <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLJDPP3N"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-        {% include 'partials/_navbar.html.twig' %}
+        {# Google Tag Manager (noscript) #}
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLJDPP3N"
+                          height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
 
+        {# Skip Link for Accessibility #}
+        <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+        {# Header with Navigation #}
+        <header role="banner">
+            {% include 'partials/_navbar.html.twig' %}
+        </header>
+
+        {# Email Verification Banner #}
         {% if app.user and not app.user.verified %}
-            <div class="verification-banner">
+            <div class="verification-banner" role="alert" aria-live="polite">
                 <div class="container">
-                    <span class="verification-icon">&#9993;</span>
+                    <span class="verification-icon" aria-hidden="true">&#9993;</span>
                     <span>Verifiez votre email pour securiser votre compte.</span>
                     <a href="{{ path('app_resend_verification', {email: app.user.email}) }}" class="verification-link">Renvoyer l'email</a>
                 </div>
             </div>
         {% endif %}
 
+        {# Flash Messages #}
         {% include 'partials/_flash_messages.html.twig' %}
 
-        <main>
+        {# Main Content #}
+        <main id="main-content" role="main">
             {% block body %}{% endblock %}
         </main>
 
+        {# Footer #}
         {% include 'partials/_footer.html.twig' %}
     </body>
 </html>

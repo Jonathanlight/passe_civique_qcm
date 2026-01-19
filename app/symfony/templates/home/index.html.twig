@@ -2,6 +2,28 @@
 
 {% block title %}Devenez citoyen francais{% endblock %}
 
+{% block meta_description %}Preparez votre naturalisation francaise avec Passe Civique. {{ questionCount }} questions sur {{ themes|length }} themes pour reussir votre parcours d'integration republicaine.{% endblock %}
+
+{% block structured_data %}
+{{ parent() }}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Passe Civique",
+    "description": "Plateforme de preparation a la citoyennete francaise",
+    "url": "{{ app.request.schemeAndHttpHost }}",
+    "sameAs": [],
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+    }
+}
+</script>
+{% endblock %}
+
 {% block body %}
 <section class="hero">
     <div class="container">

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Difficulty;
 use App\Repository\QuizConfigurationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,8 +56,8 @@ class QuizConfiguration
     #[ORM\Column]
     private bool $isActive = true;
 
-    #[ORM\Column]
-    private bool $isFreeAccess = false;
+    #[ORM\Column(length: 20)]
+    private string $difficulty = 'medium';
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -219,15 +220,30 @@ class QuizConfiguration
         return $this;
     }
 
-    public function isFreeAccess(): bool
+    public function getDifficulty(): string
     {
-        return $this->isFreeAccess;
+        return $this->difficulty;
     }
 
-    public function setIsFreeAccess(bool $isFreeAccess): static
+    public function setDifficulty(string $difficulty): static
     {
-        $this->isFreeAccess = $isFreeAccess;
+        $this->difficulty = $difficulty;
         return $this;
+    }
+
+    public function getDifficultyEnum(): Difficulty
+    {
+        return Difficulty::from($this->difficulty);
+    }
+
+    public function getDifficultyLabel(): string
+    {
+        return $this->getDifficultyEnum()->label();
+    }
+
+    public function getDifficultyColor(): string
+    {
+        return $this->getDifficultyEnum()->color();
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

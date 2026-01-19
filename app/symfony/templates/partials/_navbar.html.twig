@@ -10,9 +10,6 @@
                 <a href="{{ path('app_home') }}" class="nav-link {{ app.request.get('_route') == 'app_home' ? 'active' }}">
                     Accueil
                 </a>
-                <a href="{{ path('app_pricing') }}" class="nav-link {{ app.request.get('_route') == 'app_pricing' ? 'active' }}">
-                    Tarifs
-                </a>
 
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('app_quiz_start') }}" class="nav-link {{ app.request.get('_route') starts with 'app_quiz' ? 'active' }}">

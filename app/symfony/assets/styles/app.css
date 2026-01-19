@@ -1098,6 +1098,34 @@ p {
     gap: var(--spacing-2);
 }
 
+/* Difficulty Banner */
+.difficulty-banner {
+    padding: var(--spacing-2) var(--spacing-4);
+    margin: calc(-1 * var(--spacing-6)) calc(-1 * var(--spacing-6)) var(--spacing-4) calc(-1 * var(--spacing-6));
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.difficulty-success {
+    background: linear-gradient(135deg, var(--color-success), #059669);
+    color: white;
+}
+
+.difficulty-warning {
+    background: linear-gradient(135deg, var(--color-warning), #d97706);
+    color: white;
+}
+
+.difficulty-danger {
+    background: linear-gradient(135deg, var(--color-red), var(--color-red-dark));
+    color: white;
+}
+
 /* Locked Button */
 .btn-locked {
     background: var(--color-gray-400);

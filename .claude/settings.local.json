@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(php bin/console doctrine:migrations:migrate:*)",
+      "Bash(make migrate:*)",
+      "Bash(make compile:*)"
+    ]
+  }
+}

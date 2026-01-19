@@ -22,15 +22,10 @@ class QuizController extends AbstractController
     #[Route('/demarrer', name: 'app_quiz_start')]
     public function start(QuizConfigurationRepository $configRepository): Response
     {
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $configs = $configRepository->findBy(['isActive' => true], ['isFreeAccess' => 'DESC', 'name' => 'ASC']);
+        $configs = $configRepository->findBy(['isActive' => true], ['name' => 'ASC']);
 
         return $this->render('quiz/start.html.twig', [
             'configurations' => $configs,
-            'remainingFreeQuizzes' => $user->getRemainingFreeQuizzes(),
-            'hasSubscription' => $user->hasActiveSubscription(),
         ]);
     }
 
@@ -43,19 +38,6 @@ class QuizController extends AbstractController
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
-
-        // Check if user has access to this quiz type
-        if (!$user->hasActiveSubscription()) {
-            if (!$config->isFreeAccess()) {
-                $this->addFlash('warning', 'Ce mode de quiz necessite un abonnement.');
-                return $this->redirectToRoute('app_pricing');
-            }
-
-            if (!$user->canTakeFreeQuiz()) {
-                $this->addFlash('warning', 'Vous avez utilise vos 2 quiz gratuits. Abonnez-vous pour continuer.');
-                return $this->redirectToRoute('app_pricing');
-            }
-        }
 
         $quiz = $quizService->createQuiz($user, $config);
 

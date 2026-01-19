@@ -20,8 +20,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
 
-    public const FREE_QUIZ_LIMIT = 2;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -445,20 +443,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $count;
     }
 
-    public function canTakeFreeQuiz(): bool
-    {
-        return $this->getCompletedQuizzesCount() < self::FREE_QUIZ_LIMIT;
-    }
-
     public function canAccessQuiz(): bool
     {
-        return $this->hasActiveSubscription() || $this->canTakeFreeQuiz() || $this->isAdmin();
-    }
-
-    public function getRemainingFreeQuizzes(): int
-    {
-        $remaining = self::FREE_QUIZ_LIMIT - $this->getCompletedQuizzesCount();
-        return max(0, $remaining);
+        return true;
     }
 
     public function __toString(): string

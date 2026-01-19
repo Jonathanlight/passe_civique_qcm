@@ -8,49 +8,29 @@
         <h1 class="text-center mb-2">Choisissez votre mode de quiz</h1>
         <p class="text-center text-muted mb-4">Selectionnez le type de quiz qui vous convient</p>
 
-        {% if not hasSubscription %}
-            <div class="free-quiz-info">
-                <span class="free-icon">🎁</span>
-                <span>{{ remainingFreeQuizzes }} quiz gratuit{{ remainingFreeQuizzes > 1 ? 's' : '' }} restant{{ remainingFreeQuizzes > 1 ? 's' : '' }} sur les modes <strong>Test Standard</strong> et <strong>Mode Entrainement</strong></span>
-            </div>
-        {% endif %}
-
         <div class="config-grid">
             {% for config in configurations %}
-                {% set isLocked = not hasSubscription and not config.freeAccess %}
-                <div class="config-card {{ config.isDefault ? 'default' }} {{ isLocked ? 'locked' }}">
-                    {% if isLocked %}
-                        <div class="locked-banner">
-                            <span class="lock-icon">🔒</span> Abonnement requis
-                        </div>
-                    {% elseif config.freeAccess and not hasSubscription %}
-                        <div class="free-banner">
-                            <span class="free-icon">✓</span> Gratuit
-                        </div>
-                    {% endif %}
+                <div class="config-card {{ config.isDefault ? 'default' }}">
+                    <div class="difficulty-banner difficulty-{{ config.difficultyColor }}">
+                        {{ config.difficultyLabel }}
+                    </div>
 
                     <h3 class="config-name">{{ config.name }}</h3>
                     <p class="config-description">{{ config.description }}</p>
 
                     <div class="config-details">
-                        <span class="config-detail">📝 {{ config.questionsCount }} questions</span>
-                        <span class="config-detail">✅ {{ config.minimumCorrectAnswers }} min. requises</span>
+                        <span class="config-detail">{{ config.questionsCount }} questions</span>
+                        <span class="config-detail">{{ config.minimumCorrectAnswers }} min. requises</span>
                         {% if config.timeLimitMinutes %}
-                            <span class="config-detail">⏱️ {{ config.timeLimitMinutes }} min</span>
+                            <span class="config-detail">{{ config.timeLimitMinutes }} min</span>
                         {% else %}
-                            <span class="config-detail">⏱️ Sans limite</span>
+                            <span class="config-detail">Sans limite</span>
                         {% endif %}
                     </div>
 
-                    {% if isLocked %}
-                        <a href="{{ path('app_pricing') }}" class="btn btn-locked btn-block">
-                            <span class="lock-icon">🔒</span> S'abonner
-                        </a>
-                    {% else %}
-                        <a href="{{ path('app_quiz_create', {id: config.id}) }}" class="btn btn-primary btn-block">
-                            Commencer
-                        </a>
-                    {% endif %}
+                    <a href="{{ path('app_quiz_create', {id: config.id}) }}" class="btn btn-primary btn-block">
+                        Commencer
+                    </a>
                 </div>
             {% endfor %}
         </div>

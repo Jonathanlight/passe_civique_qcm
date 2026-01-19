@@ -58,6 +58,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $emailVerificationTokenExpiresAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $passwordResetToken = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $passwordResetTokenExpiresAt = null;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $oauthProvider = null;
 
@@ -363,6 +369,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->emailVerificationToken !== null
             && $this->emailVerificationTokenExpiresAt !== null
             && $this->emailVerificationTokenExpiresAt > new \DateTime();
+    }
+
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    public function setPasswordResetToken(?string $passwordResetToken): static
+    {
+        $this->passwordResetToken = $passwordResetToken;
+        return $this;
+    }
+
+    public function getPasswordResetTokenExpiresAt(): ?\DateTimeInterface
+    {
+        return $this->passwordResetTokenExpiresAt;
+    }
+
+    public function setPasswordResetTokenExpiresAt(?\DateTimeInterface $expiresAt): static
+    {
+        $this->passwordResetTokenExpiresAt = $expiresAt;
+        return $this;
+    }
+
+    public function generatePasswordResetToken(): string
+    {
+        $this->passwordResetToken = bin2hex(random_bytes(32));
+        $this->passwordResetTokenExpiresAt = (new \DateTime())->modify('+1 hour');
+        return $this->passwordResetToken;
+    }
+
+    public function isPasswordResetTokenValid(): bool
+    {
+        return $this->passwordResetToken !== null
+            && $this->passwordResetTokenExpiresAt !== null
+            && $this->passwordResetTokenExpiresAt > new \DateTime();
+    }
+
+    public function clearPasswordResetToken(): void
+    {
+        $this->passwordResetToken = null;
+        $this->passwordResetTokenExpiresAt = null;
     }
 
     public function getOauthProvider(): ?string

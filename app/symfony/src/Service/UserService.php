@@ -32,6 +32,7 @@ class UserService
         $user->setRegistrationIp($ip ?? '');
         $user->setIsVerified(false); // Email verification required
         $user->setIsActive(true);
+        $user->setRoles(['ROLE_USER']);
 
         $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
         $user->setPassword($hashedPassword);

@@ -248,4 +248,31 @@ class SubscriptionMailer implements SubscriptionMailerInterface
             }
         }
     }
+
+    public function sendPasswordReset(User $user): void
+    {
+        $token = $user->getPasswordResetToken();
+        if ($token === null) {
+            return;
+        }
+
+        $resetUrl = $this->urlGenerator->generate(
+            'app_reset_password',
+            ['token' => $token],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $email = (new TemplatedEmail())
+            ->from($this->getFromAddress())
+            ->to(new Address($user->getEmail(), $user->getFullName()))
+            ->subject('Reinitialisation de votre mot de passe - Passe Civique')
+            ->htmlTemplate('emails/password_reset.html.twig')
+            ->context([
+                'user' => $user,
+                'resetUrl' => $resetUrl,
+                'expiresAt' => $user->getPasswordResetTokenExpiresAt(),
+            ]);
+
+        $this->mailer->send($email);
+    }
 }

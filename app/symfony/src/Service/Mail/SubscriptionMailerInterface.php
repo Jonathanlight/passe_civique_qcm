@@ -22,4 +22,6 @@ interface SubscriptionMailerInterface
     public function sendNewSubscriptionNotification(Subscription $subscription): void;
 
     public function sendLoginNotification(User $user, array $loginInfo): void;
+
+    public function sendPasswordReset(User $user): void;
 }

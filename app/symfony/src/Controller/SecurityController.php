@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -150,6 +151,86 @@ class SecurityController extends AbstractController
         $this->addFlash('success', 'Un nouvel email de verification a ete envoye.');
 
         return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/mot-de-passe-oublie', name: 'app_forgot_password')]
+    public function forgotPassword(
+        Request $request,
+        UserRepository $userRepository,
+        EntityManagerInterface $em,
+        SubscriptionMailerInterface $mailer
+    ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        if ($request->isMethod('POST')) {
+            $email = $request->request->get('email');
+
+            if ($email) {
+                $user = $userRepository->findOneBy(['email' => $email]);
+
+                if ($user && !$user->isOAuthUser()) {
+                    $user->generatePasswordResetToken();
+                    $em->flush();
+
+                    try {
+                        $mailer->sendPasswordReset($user);
+                    } catch (\Throwable $e) {
+                        // Silent fail for security
+                    }
+                }
+
+                // Always show success message for security (don't reveal if email exists)
+                $this->addFlash('success', 'Si cette adresse email existe dans notre systeme, un lien de reinitialisation vous a ete envoye.');
+                return $this->redirectToRoute('app_login');
+            }
+        }
+
+        return $this->render('security/forgot_password.html.twig');
+    }
+
+    #[Route('/reinitialiser-mot-de-passe/{token}', name: 'app_reset_password')]
+    public function resetPassword(
+        string $token,
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $em
+    ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $user = $userRepository->findOneBy(['passwordResetToken' => $token]);
+
+        if (!$user || !$user->isPasswordResetTokenValid()) {
+            $this->addFlash('error', 'Ce lien de reinitialisation est invalide ou a expire.');
+            return $this->redirectToRoute('app_forgot_password');
+        }
+
+        if ($request->isMethod('POST')) {
+            $password = $request->request->get('password');
+            $passwordConfirm = $request->request->get('password_confirm');
+
+            if (strlen($password) < 8) {
+                $this->addFlash('error', 'Le mot de passe doit contenir au moins 8 caracteres.');
+            } elseif ($password !== $passwordConfirm) {
+                $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
+            } else {
+                $hashedPassword = $passwordHasher->hashPassword($user, $password);
+                $user->setPassword($hashedPassword);
+                $user->clearPasswordResetToken();
+                $em->flush();
+
+                $this->addFlash('success', 'Votre mot de passe a ete reinitialise avec succes. Vous pouvez maintenant vous connecter.');
+                return $this->redirectToRoute('app_login');
+            }
+        }
+
+        return $this->render('security/reset_password.html.twig', [
+            'token' => $token,
+        ]);
     }
 
     #[Route('/connect/google', name: 'connect_google_start')]
